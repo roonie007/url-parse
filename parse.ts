@@ -1,4 +1,4 @@
-import { urlJoin } from "https://deno.land/x/url_join/join.ts";
+import { urlJoin } from 'https://deno.land/x/url_join/join.ts';
 
 interface IUrlParams {
   key: string;
@@ -16,12 +16,12 @@ interface IUrlParse {
 }
 
 export const urlParse = (
-  data: IUrlParse | string | null | undefined = {},
+  data: IUrlParse | string | null | undefined = {}
 ): URL => {
-  let url = new URL("http://localhost");
+  let url = new URL('http://localhost');
   let innerData: IUrlParse = {};
 
-  if (typeof data === "string") {
+  if (typeof data === 'string') {
     url = new URL(data);
 
     if (url.protocol) {
@@ -55,17 +55,17 @@ export const urlParse = (
   }
 
   const {
-    protocol = "http",
+    protocol = 'http',
     hostname,
     pathname,
     port,
     username,
     password,
-    query = null,
+    query = null
   } = innerData;
 
   if (!protocol || !hostname) {
-    throw new Error("You should at least set the protocol and the hostname");
+    throw new Error('You should at least set the protocol and the hostname');
   }
   if (protocol) {
     url.protocol = protocol;
@@ -83,7 +83,7 @@ export const urlParse = (
     }
   }
 
-  if (typeof port === "number") {
+  if (typeof port === 'number') {
     url.port = String(port).toString();
   } else {
     if (port) {
