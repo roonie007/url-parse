@@ -12,6 +12,20 @@ import { urlBuild } from "https://deno.land/x/url_build/build.ts";
 const url = urlBuild("http://www.google.com"); // Returns an URL object
 
 console.log(url);
+/**
+ * {
+ *    href: "http://www.google.com/",
+ *    origin: "http://www.google.com",
+ *    protocol: "http:",
+ *    username: "",
+ *    password: "",
+ *    host: "www.google.com",
+ *    hostname: "www.google.com",
+ *    port: "",
+ *    pathname: "/",
+ *    hash: "",
+ *    search: ""
+ * }
 ```
 
 Using an object
