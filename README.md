@@ -26,6 +26,7 @@ console.log(url);
  *    hash: "",
  *    search: ""
  * }
+ */
 ```
 
 Using an object
