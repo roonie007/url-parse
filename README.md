@@ -11,6 +11,9 @@ import { urlBuild } from "https://deno.land/x/url_build/build.ts";
 
 const url = urlBuild("http://www.google.com"); // Returns an URL object
 
+console.log(url.toString());
+// http://www.google.com/
+
 console.log(url);
 /**
  * {
