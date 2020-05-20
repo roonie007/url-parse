@@ -2,13 +2,13 @@ import {
   assertEquals,
   assertThrows,
 } from "https://deno.land/std/testing/asserts.ts";
-import { urlBuild } from "./build.ts";
+import { urlParse } from "./parse.ts";
 
 Deno.test({
   name: "init with undefined",
   fn(): void {
     assertThrows((): void => {
-      urlBuild();
+      urlParse();
     });
   },
 });
@@ -17,7 +17,7 @@ Deno.test({
   name: "init with null",
   fn(): void {
     assertThrows((): void => {
-      urlBuild(null);
+      urlParse(null);
     });
   },
 });
@@ -26,7 +26,7 @@ Deno.test({
   name: "init with empty string",
   fn(): void {
     assertThrows((): void => {
-      urlBuild("");
+      urlParse("");
     });
   },
 });
@@ -35,7 +35,7 @@ Deno.test({
   name: "init with invalid url string",
   fn(): void {
     assertThrows((): void => {
-      urlBuild("http:/example");
+      urlParse("http:/example");
     });
   },
 });
@@ -43,7 +43,7 @@ Deno.test({
 Deno.test({
   name: "init with valid url string",
   fn(): void {
-    const url = urlBuild("https://google.com");
+    const url = urlParse("https://google.com");
 
     assertEquals(url.protocol, "https:");
     assertEquals(url.hostname, "google.com");
@@ -54,7 +54,7 @@ Deno.test({
 Deno.test({
   name: "init with valid complexe url string",
   fn(): void {
-    const url = urlBuild(
+    const url = urlParse(
       "http://username:password@google.com/search?hello=world",
     );
 
@@ -67,7 +67,7 @@ Deno.test({
   },
 });
 
-const urlBuilderData = {
+const urlParseerData = {
   protocol: "https",
   hostname: "google.com",
   pathname: "search/hey",
@@ -83,7 +83,7 @@ Deno.test({
   name: "init with empty object",
   fn(): void {
     assertThrows((): void => {
-      urlBuild({});
+      urlParse({});
     });
   },
 });
@@ -91,7 +91,7 @@ Deno.test({
 Deno.test({
   name: "init with normal object",
   fn(): void {
-    const url = urlBuild(urlBuilderData);
+    const url = urlParse(urlParseerData);
 
     assertEquals(url.protocol, "https:");
     assertEquals(url.hostname, "google.com");
@@ -105,11 +105,11 @@ Deno.test({
 Deno.test({
   name: "init with normal object - port is string",
   fn(): void {
-    const url = urlBuild(
+    const url = urlParse(
       Object.assign(
         {},
-        urlBuilderData,
-        { port: urlBuilderData.port.toString() },
+        urlParseerData,
+        { port: urlParseerData.port.toString() },
       ),
     );
 
@@ -126,10 +126,10 @@ Deno.test({
 Deno.test({
   name: "init with normal object - pathname is array of strings",
   fn(): void {
-    const url = urlBuild(
+    const url = urlParse(
       Object.assign(
         {},
-        urlBuilderData,
+        urlParseerData,
         { pathname: ["search", "hey"] },
       ),
     );

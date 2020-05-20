@@ -5,7 +5,7 @@ interface IUrlParams {
   value: string;
 }
 
-interface IUrlBuild {
+interface IUrlParse {
   protocol?: string;
   hostname?: string;
   pathname?: Array<string> | string;
@@ -15,11 +15,11 @@ interface IUrlBuild {
   query?: Array<IUrlParams> | null;
 }
 
-export const urlBuild = (
-  data: IUrlBuild | string | null | undefined = {},
+export const urlParse = (
+  data: IUrlParse | string | null | undefined = {},
 ): URL => {
   let url = new URL("http://localhost");
-  let innerData: IUrlBuild = {};
+  let innerData: IUrlParse = {};
 
   if (typeof data === "string") {
     url = new URL(data);

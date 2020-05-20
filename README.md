@@ -1,15 +1,15 @@
-# url-build
+# url-parse
 
-A simple url builder based on the ES6 [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL) object for Deno with typescript
+A simple url parser/builder based on the ES6 [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL) object for Deno with typescript
 
 ## Usage
 
 Using a String
 
 ```javascript
-import { urlBuild } from "https://deno.land/x/url_build/build.ts";
+import { urlParse } from "https://deno.land/x/url_parse/parse.ts";
 
-const url = urlBuild("http://www.google.com"); // Returns an URL object
+const url = urlParse("http://www.google.com"); // Returns an URL object
 
 console.log(url.toString());
 // http://www.google.com/
@@ -35,9 +35,9 @@ console.log(url);
 Using an object
 
 ```javascript
-import { urlBuild } from "https://deno.land/x/url_build/build.ts";
+import { urlParse } from "https://deno.land/x/url_parse/parse.ts";
 
-const url = urlBuild({
+const url = urlParse({
   protocol: "https",
   hostname: "google.com",
   pathname: "search/hey", // "search/hey" or ["search", "hey"]
