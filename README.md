@@ -7,7 +7,7 @@ A simple url parser/builder based on the ES6 [URL](https://developer.mozilla.org
 Using a String
 
 ```javascript
-import { urlParse } from 'https://deno.land/x/url_parse/parse.ts';
+import { urlParse } from 'https://deno.land/x/url_parse/mod.ts';
 
 const url = urlParse('http://www.google.com'); // Returns an URL object
 
@@ -35,7 +35,7 @@ console.log(url);
 Using an object
 
 ```javascript
-import { urlParse } from 'https://deno.land/x/url_parse/parse.ts';
+import { urlParse } from 'https://deno.land/x/url_parse/mod.ts';
 
 const url = urlParse({
   protocol: 'https',
