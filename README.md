@@ -1,15 +1,15 @@
 # url-parse
 
-A simple url parser/builder based on the ES6 [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL) object for Deno with typescript
+A simple url parser/builder based on the ES6 [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL) object for Deno with typescript.
 
 ## Usage
 
 Using a String
 
 ```javascript
-import { urlParse } from 'https://deno.land/x/url_parse/mod.ts';
+import { urlParse } from "https://deno.land/x/url_parse/mod.ts";
 
-const url = urlParse('http://www.google.com'); // Returns an URL object
+const url = urlParse("http://www.google.com"); // Returns an URL object
 
 console.log(url.toString());
 // http://www.google.com/
@@ -34,17 +34,19 @@ console.log(url);
 
 Using an object
 
+> Supports any protocol like **mongodb**, **ssh**, etc...
+
 ```javascript
-import { urlParse } from 'https://deno.land/x/url_parse/mod.ts';
+import { urlParse } from "https://deno.land/x/url_parse/mod.ts";
 
 const url = urlParse({
-  protocol: 'https',
-  hostname: 'google.com',
-  pathname: 'search/hey', // "search/hey" or ["search", "hey"]
-  username: 'username',
-  password: 'password',
+  protocol: "https",
+  hostname: "google.com",
+  pathname: "search/hey", // "search/hey" or ["search", "hey"]
+  username: "username",
+  password: "password",
   port: 3000, // 3000 or "3000"
-  query: [{ key: 'hello', value: 'world' }]
+  query: [{ key: "hello", value: "world" }],
 }); // Returns an URL object
 
 console.log(url.toString());
