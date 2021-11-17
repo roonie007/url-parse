@@ -1,11 +1,11 @@
 import { urlJoin } from "https://deno.land/x/url_join/mod.ts";
 
-interface IUrlParams {
+export interface IUrlParams {
   key: string;
   value: string;
 }
 
-interface IUrlParse {
+export interface IUrlParse {
   protocol?: string;
   hostname?: string;
   pathname?: Array<string> | string;
@@ -15,9 +15,24 @@ interface IUrlParse {
   query?: Array<IUrlParams> | null;
 }
 
+export interface IUrl {
+  href: string;
+  origin: string;
+  host: string;
+  protocol: string;
+  username: string;
+  password: string;
+  hostname: string;
+  port: string;
+  pathname: string;
+  hash: string;
+  search: string;
+  toString: () => string;
+}
+
 export const urlParse = (
-  data: IUrlParse | string | null | undefined = {},
-): URL => {
+  data: IUrlParse | string | null | undefined = {}
+): IUrl => {
   let url = new URL("http://localhost");
   let innerData: IUrlParse = {};
 
@@ -67,6 +82,7 @@ export const urlParse = (
   if (!protocol || !hostname) {
     throw new Error("You should at least set the protocol and the hostname");
   }
+
   if (protocol) {
     url.protocol = protocol;
   }
@@ -102,5 +118,32 @@ export const urlParse = (
     });
   }
 
-  return url;
+  const result: IUrl = {
+    href: url.href,
+    origin: url.origin,
+    protocol: url.protocol,
+    username: url.username,
+    password: url.password,
+    host: url.host,
+    hostname: url.hostname,
+    port: url.port,
+    pathname: url.pathname,
+    hash: url.hash,
+    search: url.search,
+    toString() {
+      return this.href;
+    },
+  };
+
+  if (protocol) {
+    const toUseProtocol = protocol.trim().endsWith(":")
+      ? protocol.trim()
+      : `${protocol.trim()}:`;
+
+    result.href = result.href.replace(result.protocol, toUseProtocol);
+    result.origin = result.origin.replace(result.protocol, toUseProtocol);
+    result.protocol = toUseProtocol;
+  }
+
+  return result;
 };

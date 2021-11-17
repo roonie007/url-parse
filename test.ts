@@ -35,8 +35,16 @@ Deno.test({
   name: "init with invalid url string",
   fn(): void {
     assertThrows((): void => {
-      urlParse("http:/example");
+      urlParse("random-string");
     });
+  },
+});
+Deno.test({
+  name: "init with incorrect but working url string",
+  fn(): void {
+    const url = urlParse("http:/example");
+
+    assertEquals(url.toString(), "http://example/");
   },
 });
 
@@ -52,10 +60,10 @@ Deno.test({
 });
 
 Deno.test({
-  name: "init with valid complexe url string",
+  name: "init with valid complex url string",
   fn(): void {
     const url = urlParse(
-      "http://username:password@google.com/search?hello=world",
+      "http://username:password@google.com/search?hello=world"
     );
 
     assertEquals(url.protocol, "http:");
@@ -67,7 +75,7 @@ Deno.test({
   },
 });
 
-const urlParseerData = {
+const urlParserData = {
   protocol: "https",
   hostname: "google.com",
   pathname: "search/hey",
@@ -91,7 +99,7 @@ Deno.test({
 Deno.test({
   name: "init with normal object",
   fn(): void {
-    const url = urlParse(urlParseerData);
+    const url = urlParse(urlParserData);
 
     assertEquals(url.protocol, "https:");
     assertEquals(url.hostname, "google.com");
@@ -106,9 +114,9 @@ Deno.test({
   name: "init with normal object - port is string",
   fn(): void {
     const url = urlParse(
-      Object.assign({}, urlParseerData, {
-        port: urlParseerData.port.toString(),
-      }),
+      Object.assign({}, urlParserData, {
+        port: urlParserData.port.toString(),
+      })
     );
 
     assertEquals(url.protocol, "https:");
@@ -125,12 +133,33 @@ Deno.test({
   name: "init with normal object - pathname is array of strings",
   fn(): void {
     const url = urlParse(
-      Object.assign({}, urlParseerData, { pathname: ["search", "hey"] }),
+      Object.assign({}, urlParserData, { pathname: ["search", "hey"] })
     );
 
     assertEquals(url.protocol, "https:");
     assertEquals(url.hostname, "google.com");
     assertEquals(url.port, "3000");
+    assertEquals(url.pathname, "/search/hey");
+    assertEquals(url.username, "username");
+    assertEquals(url.password, "password");
+    assertEquals(url.search, "?hello=world");
+  },
+});
+
+Deno.test({
+  name: "init with normal object - mongodb: protocol",
+  fn(): void {
+    const url = urlParse(
+      Object.assign({}, urlParserData, {
+        protocol: "mongodb:",
+        hostname: "localhost",
+        port: "27017",
+      })
+    );
+
+    assertEquals(url.protocol, "mongodb:");
+    assertEquals(url.hostname, "localhost");
+    assertEquals(url.port, "27017");
     assertEquals(url.pathname, "/search/hey");
     assertEquals(url.username, "username");
     assertEquals(url.password, "password");
